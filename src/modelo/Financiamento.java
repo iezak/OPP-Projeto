@@ -23,7 +23,7 @@ public class Financiamento {
     }
 
     public double calcularPagamentoMensal() {
-        return (this.valorImovel/(this.prazoFinanciamento*12))*(1 + (this.taxaJurosAnual/12));
+        return (this.valorImovel/(this.prazoFinanciamento*12))*(1 + ((this.taxaJurosAnual/100)/12));
     }
 
     public double calcularTotalPagamento() {
