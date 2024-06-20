@@ -16,8 +16,9 @@ public class ImprimeFinanciamentos {
 
     public void ImprimeLista(){
         for (Financiamento financiamento : listaDeFinanciamentos) {
-            System.out.printf("===== Dados do Financiamento %d ===== \n\n", listaDeFinanciamentos.indexOf(financiamento)+1);
+            System.out.printf("===== Dados do Financiamento %d (%s)===== \n\n", listaDeFinanciamentos.indexOf(financiamento)+1, financiamento.toString());
             financiamento.imprimeFinanciamento();
+            System.out.println("-----------------------------------------");
 
             valorTotalImoveis += financiamento.getValorImovel();
             valorTotalFinanciamento += financiamento.calcularTotalPagamento();
