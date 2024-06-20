@@ -2,6 +2,7 @@ package main;
 
 import modelo.Apartamento;
 import modelo.Casa;
+import modelo.Financiamento;
 import modelo.Terreno;
 import util.ImprimeFinanciamentos;
 import util.InterfaceUsuario;
@@ -9,27 +10,42 @@ import util.InterfaceUsuario;
 public class main {
     public static void main(String[] args) {
         ImprimeFinanciamentos imprimeFinanciamentos = new ImprimeFinanciamentos();
-        System.out.println("-----------------------------------------");
-        double valorDoImovel = new InterfaceUsuario().valorDoImovel();
-        int prazoImovel = new InterfaceUsuario().prazoDoFinanciamento();
-        double taxaDeJuros = new InterfaceUsuario().taxaJurosAnual();
-        System.out.println("-----------------------------------------");
+        int quantidadeFinanciamentos = new InterfaceUsuario().qtdaFinanciamentos();
 
+        for (int i = 0; i < quantidadeFinanciamentos; i++) {
+            System.out.println("-----------------------------------------");
+            String tipoFinanciamento = new InterfaceUsuario().tipoFinanciamento();
+            if (tipoFinanciamento.equals("casa")) {
+                double valorDoImovel = new InterfaceUsuario().valorDoImovel();
+                int prazoImovel = new InterfaceUsuario().prazoDoFinanciamento();
+                double taxaDeJuros = new InterfaceUsuario().taxaJurosAnual();
+                double areaConstruida = new InterfaceUsuario().areaConstruida();
+                double areaTerreno = new InterfaceUsuario().areaTerreno();
 
-        Casa financiamento_Casa_1 = new Casa(valorDoImovel, prazoImovel, taxaDeJuros);
-        imprimeFinanciamentos.add(financiamento_Casa_1);
+                Casa casa = new Casa(valorDoImovel, prazoImovel, taxaDeJuros, areaConstruida, areaTerreno);
+                imprimeFinanciamentos.add(casa);
+            }
+            if (tipoFinanciamento.equals("apartamento")) {
+                double valorDoImovel = new InterfaceUsuario().valorDoImovel();
+                int prazoImovel = new InterfaceUsuario().prazoDoFinanciamento();
+                double taxaDeJuros = new InterfaceUsuario().taxaJurosAnual();
+                int numeroVagas = new InterfaceUsuario().numeroVagas();
+                int numeroAndar = new InterfaceUsuario().numeroAndar();
 
-        Casa financiamento_Casa_2 = new Casa(valorDoImovel-50000, prazoImovel, taxaDeJuros);
-        imprimeFinanciamentos.add(financiamento_Casa_2);
+                Apartamento apartamento = new Apartamento(valorDoImovel, prazoImovel, taxaDeJuros, numeroVagas,
+                        numeroAndar);
+                imprimeFinanciamentos.add(apartamento);
+            }
+            if (tipoFinanciamento.equals("terreno")) {
+                double valorDoImovel = new InterfaceUsuario().valorDoImovel();
+                int prazoImovel = new InterfaceUsuario().prazoDoFinanciamento();
+                double taxaDeJuros = new InterfaceUsuario().taxaJurosAnual();
+                String zona = new InterfaceUsuario().tipoZona();
 
-        Apartamento financiamento_Apartamento_1 = new Apartamento(valorDoImovel, prazoImovel, taxaDeJuros);
-        imprimeFinanciamentos.add(financiamento_Apartamento_1);
-
-        Apartamento financiamento_Apartamento_2 = new Apartamento(valorDoImovel-50000, prazoImovel, taxaDeJuros);
-        imprimeFinanciamentos.add(financiamento_Apartamento_2);
-
-        Terreno financiamento_Terreno_1 = new Terreno(valorDoImovel, prazoImovel, taxaDeJuros);
-        imprimeFinanciamentos.add(financiamento_Terreno_1);
+                Terreno terreno = new Terreno(valorDoImovel, prazoImovel, taxaDeJuros, zona);
+                imprimeFinanciamentos.add(terreno);
+            }
+        }
 
         imprimeFinanciamentos.ImprimeLista();
     }
