@@ -2,7 +2,6 @@ package main;
 
 import modelo.Apartamento;
 import modelo.Casa;
-import modelo.Financiamento;
 import modelo.Terreno;
 import util.ImprimeFinanciamentos;
 import util.InterfaceUsuario;

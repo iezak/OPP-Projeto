@@ -1,9 +1,12 @@
 package modelo;
 
+import util.JurosMaiorQueAcrecimoException;
+
 public class Casa extends Financiamento {
 
     private double areaConstruida;
     private double areaTerreno;
+    private int acrecimo = 80;
 
     public Casa(double valorImovel, int prazoFinanciamento, double taxaJurosAnual, double areaConstruida, double areaTerreno) {
         super(valorImovel, prazoFinanciamento, taxaJurosAnual);
@@ -11,8 +14,20 @@ public class Casa extends Financiamento {
         this.areaTerreno = areaTerreno;
     }
 
+    private void validaAcresimo() throws JurosMaiorQueAcrecimoException {
+        if(acrecimo <= (super.valorImovel/(super.prazoFinanciamento*12))*(((super.taxaJurosAnual/100)/12))) {
+            acrecimo = 0;
+            throw new JurosMaiorQueAcrecimoException("O valor do acressimo sera ajustado para 0.");
+        }
+    }
+
     public double calcularPagamentoMensal() {
-        return (super.valorImovel/(super.prazoFinanciamento*12))*(1 + ((super.taxaJurosAnual/100)/12))+80;
+        try {
+            this.validaAcresimo();
+        } catch (JurosMaiorQueAcrecimoException e) {
+            System.out.println(e.getMessage());
+        }
+        return (super.valorImovel/(super.prazoFinanciamento*12))*(1 + ((super.taxaJurosAnual/100)/12))+this.acrecimo;
     }
 
     public void imprimeFinanciamento() {
